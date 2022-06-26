@@ -76,9 +76,19 @@ const authControl = {
                     message: 'Please check your email to verify your account'
                 })
             }else{
-                payload.token = webToken.generateToken(payload)
-                payload.refreshToken= webToken.generateRefreshToken(payload)
+                const token = webToken.generateToken(payload)
+                payload.token = token
+                const refreshToken= webToken.generateRefreshToken(payload)
+                payload.refreshToken = refreshToken
                 delete data.password
+                res.cookie('token', token, {
+                    httpOnly: true,
+                    maxAge: 1000 * 60 * 60 * 12,
+                    secure: false,
+                    path: "/",
+                    sameSite: 'none',
+                    
+                })
                 res.status(200).json({
                     message: `Wellcome back ${payload.name}`,
                     payload

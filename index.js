@@ -3,6 +3,7 @@ const express = require('express')
 const createError = require('http-errors')
 const main = require('./src/route/main')
 const cors = require("cors");
+const cookieParser = require('cookie-parser')
 
 const PORT = process.env.PORT || 8000
 const app = express()
@@ -11,6 +12,7 @@ const app = express()
 
 
 app.use(express())
+app.use(cookieParser())
 app.use(express.json())
 app.use(
     cors({
