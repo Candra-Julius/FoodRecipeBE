@@ -16,11 +16,11 @@ app.use(cookieParser())
 app.use(express.json())
 app.use(
     cors({
-    origin: "*",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     preflightContinue: true,
     optionsSuccessStatus: 204,
     credentials: true,
+    origin: 'http://localhost:3000'
     })
 );
 
