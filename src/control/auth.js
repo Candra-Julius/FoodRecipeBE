@@ -86,8 +86,8 @@ const authControl = {
                     maxAge: 1000 * 60 * 60 * 12,
                     secure: false,
                     path: "/",
-                    sameSite: 'none',
-                    
+                    sameSite: 'strict',
+
                 })
                 res.status(200).json({
                     message: `Wellcome back ${payload.name}`,
