@@ -59,7 +59,7 @@ const authControl = {
         const validate =  bcrypt.compareSync(password, data.password)
         
         if(!validate || !emailCheck){
-            res.status(406).json({
+            res.status(403).json({
                 message: 'Email or Password incorect'
             })
         }else{
@@ -72,7 +72,7 @@ const authControl = {
                 status: data.status
             }
             if(!payload.status){
-                res.status(403).json({
+                res.status(401).json({
                     message: 'Please check your email to verify your account'
                 })
             }else{
@@ -87,7 +87,6 @@ const authControl = {
                     secure: true,
                     path: "/",
                     sameSite: 'strict',
-
                 })
                 res.status(200).json({
                     message: `Wellcome back ${payload.name}`,
