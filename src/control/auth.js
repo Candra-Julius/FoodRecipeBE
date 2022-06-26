@@ -84,7 +84,7 @@ const authControl = {
                 res.cookie('token', token, {
                     httpOnly: true,
                     maxAge: 1000 * 60 * 60 * 12,
-                    secure: false,
+                    secure: true,
                     path: "/",
                     sameSite: 'strict',
 
