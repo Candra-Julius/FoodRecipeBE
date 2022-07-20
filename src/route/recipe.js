@@ -5,7 +5,7 @@ const { isLogin } = require('../middlare/verif')
 const router = express.Router()
 
 router
-.post('/new', upload.fields(
+.post('/new', isLogin, upload.fields(
     [
         {name: 'image', maxCount:1},
         {name: 'video', maxCount:1}

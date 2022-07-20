@@ -11,7 +11,7 @@ cloudinary.config({
 const reciptControl = {
     addNewRecipe: async(req, res, next)=>{
         try {
-            const userID = req.body.userID
+            const userID = req.payload.id
             const {name, ingridient, title} = req.body
             if (req.files.video && req.files.image){
                 console.log('semua ada');
@@ -122,7 +122,7 @@ const reciptControl = {
     },
     getAllRecipe: async(req,res,next)=>{
         const page = parseInt(req.query.page) || 1
-        const limit = parseInt(req.query.limit) || 12
+        const limit = parseInt(req.query.limit) || 20
         const offset = (page - 1) * limit
         const sortby = req.query.sortby
         const search = req.query.search
@@ -181,9 +181,10 @@ const reciptControl = {
     },
     updateRecipe: async(req, res, next)=>{
         try {
-            const id = req.params
+            const {id} = req.params
             const {name, ingridient} = req.body
             if(req.file){
+                const fileImg = req.file
                 const image = await cloudinary.uploader.upload(fileImg.path)
                 const data = {
                     id,
@@ -192,6 +193,7 @@ const reciptControl = {
                     image: image.secure_url
                 }
                 await editRecipeWithImg(data)
+                console.log(data);
                 res.status(200).json({
                     message: 'updated',
                     data

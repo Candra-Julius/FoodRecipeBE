@@ -43,6 +43,7 @@ const authControl = {
         try {
             const id = req.params.id
             await activated(id)
+            res.redirect('http://localhost:3000/login')
             res.status(200).json({
                 message:'success'
             })
@@ -69,7 +70,8 @@ const authControl = {
                 email: data.email,
                 phone: data.phone,
                 role: data.role,
-                status: data.status
+                status: data.status,
+                isLogin: true
             }
             if(!payload.status){
                 res.status(401).json({
@@ -83,7 +85,7 @@ const authControl = {
                 delete data.password
                 res.cookie('token', token, {
                     httpOnly: true,
-                    maxAge: 1000 * 60 * 60 * 12,
+                    maxAge: 43200000,
                     secure: true,
                     path: "/",
                     sameSite: 'none',
@@ -99,6 +101,24 @@ const authControl = {
             console.log(error);
         next(createError[500]())   
         }
+    },
+    logout: (req, res, next) => {
+        console.log('mulai logout');
+        const payload = {
+            logout: true
+        }
+        console.log(token);
+        res.cookie('token', payload, {
+            httpOnly: true,
+            maxAge: 10,
+            secure: true,
+            path: "/",
+            sameSite: 'none',
+        })
+        res.status(200).json({
+            message: 'logout success'
+        })
+        console.log('logout selesai');
     }
 }
 module.exports = authControl

@@ -14,6 +14,7 @@ const verif = {
                 const decode = jwt.verify(token, process.env.SECRET_KEY_JWT)
                 // console.log(decode);
                 req.payload = decode
+                console.log(req.payload);
                 console.log('isLogin selesai');
                 next()
             // }else {
