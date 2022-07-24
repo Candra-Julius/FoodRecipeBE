@@ -83,13 +83,13 @@ const authControl = {
                 const refreshToken= webToken.generateRefreshToken(payload)
                 payload.refreshToken = refreshToken
                 delete data.password
-                res.cookie('token', token, {
-                    httpOnly: true,
-                    maxAge: 43200000,
-                    secure: true,
-                    path: "/",
-                    sameSite: 'none',
-                })
+                // res.cookie('token', token, {
+                //     httpOnly: true,
+                //     maxAge: 43200000,
+                //     secure: true,
+                //     path: "/",
+                //     sameSite: 'none',
+                // })
                 res.status(200).json({
                     message: `Wellcome back ${payload.name}`,
                     payload
@@ -104,17 +104,17 @@ const authControl = {
     },
     logout: (req, res, next) => {
         console.log('mulai logout');
-        const payload = {
-            logout: true
-        }
-        console.log(token);
-        res.cookie('token', payload, {
-            httpOnly: true,
-            maxAge: 10,
-            secure: true,
-            path: "/",
-            sameSite: 'none',
-        })
+        // const payload = {
+        //     logout: true
+        // }
+        // console.log(token);
+        // res.cookie('token', payload, {
+        //     httpOnly: true,
+        //     maxAge: 10,
+        //     secure: true,
+        //     path: "/",
+        //     sameSite: 'none',
+        // })
         res.status(200).json({
             message: 'logout success'
         })
