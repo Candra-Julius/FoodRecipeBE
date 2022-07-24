@@ -20,7 +20,7 @@ app.use(
     preflightContinue: true,
     optionsSuccessStatus: 204,
     credentials: true,
-    origin: 'https://foodrecipe-dusky.vercel.app/'
+    origin: 'https://foodrecipe-dusky.vercel.app'
     })
 );
 
