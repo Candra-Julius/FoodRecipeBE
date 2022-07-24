@@ -45,13 +45,11 @@ const reciptControl = {
                 name,
                 ingridient,
                 image: image.secure_url,
-                // video: video.secure_url,
                 title,
                 id: uuidv4()
             }
             console.log(data);
             await addNewRecipe(data)
-            // await recipeVideo(data)
             res.status(200).json({
                 message: 'New Recipe Added',
                 data
