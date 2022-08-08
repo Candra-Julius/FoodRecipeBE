@@ -151,7 +151,7 @@ Contributions are what make the open source community such an amazing place to b
 
 :rocket: [`Web Service`](https://food-recipe-pijar.herokuapp.com/)
 
-:rocket: [`Demo FoodRecipe`](https://dove-chat-fe.vercel.app/login)
+:rocket: [`Demo FoodRecipe`](https://foodrecipe-dusky.vercel.app/login)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
