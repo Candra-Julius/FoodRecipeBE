@@ -20,7 +20,7 @@ app.use(
     preflightContinue: true,
     optionsSuccessStatus: 204,
     credentials: true,
-    origin: ['http://localhost:3000'], ['https://foodrecipe-dusky.vercel.app']
+    origin: ['http://localhost:3000', 'https://foodrecipe-dusky.vercel.app']
     })
 );
 
