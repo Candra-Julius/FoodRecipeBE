@@ -1,15 +1,15 @@
 const createError = require('http-errors')
 const { v4: uuidv4 } = require('uuid')
 const { Activation } = require('../helper/mailer')
-const { emailCheck, regist, activated, checkEmail } = require('../modul/auth')
+const { emailCheck, registration, emailVerification } = require('../modul/auth')
 const bcrypt = require('bcryptjs')
 const webToken = require('../helper/jwt')
 
 
 const authControl = {
-    regist: async(req, res, next) =>{
+    registration: async(req, res, next) =>{
     try {
-        const {email, phone, password, name} = req.body
+        const {email, password, name} = req.body
         const {rowCount: emailExist} = await emailCheck(email)
         const salt = bcrypt.genSaltSync(13)
         const hash = bcrypt.hashSync(password,salt)
@@ -17,9 +17,8 @@ const authControl = {
             id: uuidv4(),
             name,
             email,
-            phone,
             hash,
-            status: 0
+            flag_active: false
         }
         if(emailExist){
             res.status(200).json({
@@ -27,7 +26,8 @@ const authControl = {
             })
         }else{
             
-            await regist(data)
+            await registration(data)
+            delete data.hash
             res.status(403).json({
                 message:'Registration success, please check your email',
                 data
@@ -39,10 +39,10 @@ const authControl = {
         next(createError[500]())
     }
     },
-    active: async(req, res, next) =>{
+    emailVerification: async(req, res, next) =>{
         try {
             const id = req.params.id
-            await activated(id)
+            await emailVerification(id)
             res.redirect('http://localhost:3000/login')
             res.status(200).json({
                 message:'success'
@@ -55,25 +55,26 @@ const authControl = {
     login: async(req, res, next) =>{
         try { 
         const {email, password} = req.body
-        const {rowCount: emailCheck, rows: [data]} = await checkEmail(email)
-        console.log(data);
+        const {rowCount, rows: [data]} = await emailCheck(email)
+        if(!rowCount){
+            res.status(403).json({
+                message: 'Email doesnt exist'
+            })
+            return
+        }
         const validate =  bcrypt.compareSync(password, data.password)
-        
-        if(!validate || !emailCheck){
+        if(!validate){
             res.status(403).json({
                 message: 'Email or Password incorect'
             })
         }else{
             const payload = {
-                id: data.user_id,
+                id: data.id_user,
                 name: data.name,
                 email: data.email,
-                phone: data.phone,
-                role: data.role,
-                status: data.status,
                 isLogin: true
             }
-            if(!payload.status){
+            if(!data.flag_active){
                 res.status(401).json({
                     message: 'Please check your email to verify your account'
                 })
@@ -82,7 +83,6 @@ const authControl = {
                 payload.token = token
                 const refreshToken= webToken.generateRefreshToken(payload)
                 payload.refreshToken = refreshToken
-                delete data.password
                 // res.cookie('token', token, {
                 //     httpOnly: true,
                 //     maxAge: 43200000,

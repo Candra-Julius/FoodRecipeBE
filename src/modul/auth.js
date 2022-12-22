@@ -1,18 +1,15 @@
 const pool = require('../config/pg')
 
 const authModel = {
-    regist: (data) =>{
-        return pool.query('INSERT INTO users (user_id, email, phone, password, name, status) VALUES($1, $2, $3, $4, $5, $6)',[data.id, data.email, data.phone, data.hash, data.name, data.status])
+    registration: (data) =>{
+        return pool.query('INSERT INTO td_user (id_user, email, password, name, flag_active) VALUES($1, $2, $3, $4, $5)',[data.id, data.email, data.hash, data.name, data.flag_active])
     },
     emailCheck: (email) =>{
-        return pool.query('SELECT * FROM users WHERE email = $1', [email])
+        return pool.query('SELECT * FROM td_user WHERE email = $1', [email])
     },
-    activated: (id) =>{
-        return pool.query('UPDATE users SET status = 1 WHERE user_id = $1', [id])
+    emailVerification: (id) =>{
+        return pool.query('UPDATE td_user SET flag_active = true WHERE id_user = $1', [id])
     },
-    checkEmail: (email)=>{
-        return pool.query('SELECT * FROM users WHERE email = $1', [email])
-    }
 }
 
 module.exports = authModel

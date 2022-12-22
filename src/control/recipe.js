@@ -39,7 +39,6 @@ const reciptControl = {
                 console.log('cuma gambar');
                 const [fileImg] = req.files.image
             const image = await cloudinary.uploader.upload(fileImg.path)
-            // const video = await cloudinary.uploader.upload(req.files.video.path)
             const data = {
                 userID,
                 name,
@@ -57,13 +56,11 @@ const reciptControl = {
             }else if (!req.files.image && req.files.video){
                 console.log('cuma vid');
                 const [fileVid] = req.files.video
-                // const image = await cloudinary.uploader.upload(req.files.image.path)
             const video = await cloudinary.uploader.upload(fileVid.path, {resource_type: "video"})
             const data = {
                 userID,
                 name,
                 ingridient,
-                // image: image.secure_url,
                 video: video.secure_url,
                 title,
                 id: uuidv4()
@@ -77,26 +74,20 @@ const reciptControl = {
             })
             }else{
                 console.log('ga ada');
-            //     const image = await cloudinary.uploader.upload(req.files.image.path)
-            // const video = await cloudinary.uploader.upload(req.files.video.path)
             const data = {
                 userID,
                 name,
                 ingridient,
-                // image: image.secure_url,
-                // video: video.secure_url,
                 title,
                 id: uuidv4()
             }
             console.log(data);
             await addNewRecipe(data)
-            //await recipeVideo(data)
             res.status(200).json({
                 message: 'New Recipe Added',
                 data
             })
             }
-            
         } catch (error) {
             console.log(error);
             next(createError[500]())

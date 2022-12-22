@@ -22,7 +22,7 @@ const sendEmail = {
             from:'"FoodRecipe" <candrajulius24@gmail.com>',
             to: data.email,
             subject: 'User Activation',
-            text: `http://localhost:8000/activate/${token}/${data.id}`
+            text: `http://localhost:${PORT}/activate/${token}/${data.id}`
         })
         console.log('Message sent: %s', info.messageId)
     }
