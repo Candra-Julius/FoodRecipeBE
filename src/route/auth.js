@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const authControl = require('../control/auth')
+const authControl = require('../controller/auth')
 const { upload } = require('../helper/fileHandler')
 const { isLogin } = require('../middlare/verif')
 

@@ -4,6 +4,7 @@ const { Activation } = require('../helper/mailer')
 const { emailCheck, registration, emailVerification } = require('../modul/auth')
 const bcrypt = require('bcryptjs')
 const webToken = require('../helper/jwt')
+const moment = require("moment")
 
 
 const authControl = {
@@ -13,12 +14,14 @@ const authControl = {
         const {rowCount: emailExist} = await emailCheck(email)
         const salt = bcrypt.genSaltSync(13)
         const hash = bcrypt.hashSync(password,salt)
+        const date = moment(new Date().getTime()).format()
         const data = {
             id: uuidv4(),
             name,
             email,
             hash,
-            flag_active: false
+            flag_active: false,
+            created_at: date
         }
         if(emailExist){
             res.status(200).json({
@@ -43,10 +46,7 @@ const authControl = {
         try {
             const id = req.params.id
             await emailVerification(id)
-            res.redirect('http://localhost:3000/login')
-            res.status(200).json({
-                message:'success'
-            })
+            res.redirect('https://google.com')
         } catch (error) {
             console.log(error);
             next(createError[500]())

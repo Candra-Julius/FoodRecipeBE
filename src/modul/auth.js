@@ -2,7 +2,15 @@ const pool = require('../config/pg')
 
 const authModel = {
     registration: (data) =>{
-        return pool.query('INSERT INTO td_user (id_user, email, password, name, flag_active) VALUES($1, $2, $3, $4, $5)',[data.id, data.email, data.hash, data.name, data.flag_active])
+        return pool.query('INSERT INTO td_user (id_user, email, password, name, flag_active, created_at) VALUES($1, $2, $3, $4, $5, $6)',
+        [
+            data.id, 
+            data.email, 
+            data.hash, 
+            data.name, 
+            data.flag_active,
+            data.created_at
+        ])
     },
     emailCheck: (email) =>{
         return pool.query('SELECT * FROM td_user WHERE email = $1', [email])
