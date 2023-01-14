@@ -1,9 +1,9 @@
 const nodemailer = require('nodemailer')
 const jwt = require('jsonwebtoken')
 const PORT = process.env.PORT || 8000 
-const URL =''
+let URL =''
 if(process.env.PROJECT_ENV === 'PRODUCTION'){
-    URL = 'https://long-underwear-toad.cyclic.app'
+    URL = 'https://long-underwear-toad.cyclic.app/'
 }else {
     URL = `http://localhost:${PORT}`
 }
