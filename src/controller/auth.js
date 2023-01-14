@@ -32,7 +32,7 @@ const authControl = {
             
             await registration(data)
             delete data.hash
-            res.status(403).json({
+            res.status(203).json({
                 message:'Registration success, please check your email',
                 data
             })
@@ -47,7 +47,9 @@ const authControl = {
         try {
             const id = req.params.id
             await emailVerification(id)
-            res.redirect('https://google.com')
+            res.status(200).json({
+                message: 'success you can login now'
+            })
         } catch (error) {
             console.log(error);
             next(createError[500]())
