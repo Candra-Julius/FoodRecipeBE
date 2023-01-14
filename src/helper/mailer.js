@@ -1,6 +1,12 @@
 const nodemailer = require('nodemailer')
 const jwt = require('jsonwebtoken')
-const PORT = process.env.PORT || 8000
+const PORT = process.env.PORT || 8000 
+const URL =''
+if(process.env.PROJECT_ENV === 'PRODUCTION'){
+    URL = 'https://long-underwear-toad.cyclic.app'
+}else {
+    URL = `http://localhost:${PORT}`
+}
 
 const transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
@@ -22,7 +28,7 @@ const sendEmail = {
             from:'"FoodRecipe" <candrajulius24@gmail.com>',
             to: data.email,
             subject: 'User Activation',
-            text: `http://localhost:${PORT}/activate/${token}/${data.id}`
+            text: `${URL}/activate/${token}/${data.id}`
         })
         console.log('Message sent: %s', info.messageId)
     }
