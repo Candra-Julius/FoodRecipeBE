@@ -19,8 +19,8 @@ app.use(
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     preflightContinue: true,
     optionsSuccessStatus: 204,
-    // credentials: true,
-    origin: ['http://localhost:3000', 'https://foodrecipe-dusky.vercel.app/']
+    credentials: true,
+    origin: ['http://localhost:3000', 'https://foodrecipe-dusky.vercel.app']
     })
 );
 
