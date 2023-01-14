@@ -21,7 +21,7 @@ const authControl = {
             email,
             phone,
             hash,
-            flag_active: false,
+            flag_active: true,
             created_at: date
         }
         if(emailExist){
@@ -36,7 +36,7 @@ const authControl = {
                 message:'Registration success, please check your email',
                 data
             })
-            Activation(data)
+            // Activation(data)
         }
     } catch (error) {
         console.log(error);
