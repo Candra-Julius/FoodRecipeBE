@@ -10,7 +10,7 @@ const moment = require("moment")
 const authControl = {
     registration: async(req, res, next) =>{
     try {
-        const {email, password, name} = req.body
+        const {email, password, name, phone} = req.body
         const {rowCount: emailExist} = await emailCheck(email)
         const salt = bcrypt.genSaltSync(13)
         const hash = bcrypt.hashSync(password,salt)
@@ -19,6 +19,7 @@ const authControl = {
             id: uuidv4(),
             name,
             email,
+            phone,
             hash,
             flag_active: false,
             created_at: date
