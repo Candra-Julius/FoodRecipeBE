@@ -4,21 +4,6 @@ WORKDIR /app
 
 COPY . /app/
 
-ARG CLOUDINARY_API_KEY=823585359713638
-ARG CLOUDINARY_API_SECRET=NbP7VxPWEzzWLhb5V_bNiLbkhws
-ARG CLOUDINARY_NAME=candrajulius
-
-ARG GMAIL_APP_PASS=sanpewjeyuleixge
-ARG PORT=8000
-ARG SECRET_KEY_JWT=FoodRecipe
-
-ARG PGUSER=postgres
-ARG PGHOST=localhost
-ARG PGDATABASE=postgres
-ARG PGPASSWORD=postgres
-ARG PGPORT=5432
-ARG DATABASE_URL=postgresql://localhost:5432/postgres
-
 EXPOSE 8000
 
 CMD ["node", "index.js"]
