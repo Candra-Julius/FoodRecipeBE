@@ -36,7 +36,7 @@ const authControl = {
                 message:'Registration success, please check your email',
                 data
             })
-            // Activation(data)
+            Activation(data)
         }
     } catch (error) {
         console.log(error);

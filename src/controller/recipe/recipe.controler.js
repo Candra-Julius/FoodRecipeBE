@@ -33,7 +33,7 @@ const reciptControl = {
                 part_order: req.body.part_order
             }
             const files = req.files
-            console.log(files)
+            console.log(req.body)
             const datas = await newRecipe(data, files, next)
 
             res.status(200).json({
@@ -132,9 +132,8 @@ const reciptControl = {
         try {
             const {id} = req.params
             const {recipe_name, ingredient} = req.body
-            console.log(recipe_name)
+            console.log(req.body)
             const {rows: [datas]} = await checkRecipe(id) 
-
             const data = {
                 id,
                 recipe_name,

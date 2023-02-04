@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 const verif = {
     isLogin: (req, res, next) => {
         try {
-            console.log('masuk ke isLogin');
+            // console.log('masuk ke isLogin');
             // token = req.cookies.token
             // if(!token){
             //     next(createError[401]('Please Login'))
@@ -14,8 +14,8 @@ const verif = {
                 const decode = jwt.verify(token, process.env.SECRET_KEY_JWT)
                 // console.log(decode);
                 req.payload = decode
-                console.log(req.payload);
-                console.log('isLogin selesai');
+                // console.log(req.payload);
+                // console.log('isLogin selesai');
                 next()
             }else {
                 next(createError[401]('Please Login'))
